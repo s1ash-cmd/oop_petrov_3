@@ -19,32 +19,41 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 find_package(Boost REQUIRED COMPONENTS serialization)
 
 set(PROJECT_SOURCES
-        main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
+    main.cpp
+    mainwindow.cpp
+    mainwindow.h
+    mainwindow.ui
+)
+
+# Дополнительные файлы для проекта
+set(ADDITIONAL_SOURCES
+    petrov_header.h
+    petrov_item.cpp
+    petrov_item.h
+    petrov_used_item.cpp
+    petrov_used_item.h
+    petrov_shop.cpp
+    petrov_shop.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+    # Для Qt6 используем qt_add_executable
     qt_add_executable(oop_petrov_3
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        ${ADDITIONAL_SOURCES}  # Подключаем дополнительные файлы
     )
 else()
+    # Для Qt5 используем стандартный add_executable
     if(ANDROID)
         add_library(oop_petrov_3 SHARED
             ${PROJECT_SOURCES}
+            ${ADDITIONAL_SOURCES}  # Подключаем дополнительные файлы
         )
     else()
         add_executable(oop_petrov_3
             ${PROJECT_SOURCES}
-            petrov_header.h
-            petrov_item.cpp
-            petrov_item.h
-            petrov_used_item.cpp
-            petrov_used_item.h
-            petrov_shop.cpp
-            petrov_shop.h
+            ${ADDITIONAL_SOURCES}  # Подключаем дополнительные файлы
         )
     endif()
 endif()
@@ -54,6 +63,7 @@ target_link_libraries(oop_petrov_3 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Boost:
 if(${QT_VERSION} VERSION_LESS 6.1.0)
     set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.oop_petrov_3)
 endif()
+
 set_target_properties(oop_petrov_3 PROPERTIES
     ${BUNDLE_ID_OPTION}
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}

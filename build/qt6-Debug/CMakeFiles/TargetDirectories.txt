@@ -1,0 +1,9 @@
+/home/s1ash2k/oop_petrov_3/build/qt6-Debug/CMakeFiles/oop_petrov_3.dir
+/home/s1ash2k/oop_petrov_3/build/qt6-Debug/CMakeFiles/edit_cache.dir
+/home/s1ash2k/oop_petrov_3/build/qt6-Debug/CMakeFiles/rebuild_cache.dir
+/home/s1ash2k/oop_petrov_3/build/qt6-Debug/CMakeFiles/list_install_components.dir
+/home/s1ash2k/oop_petrov_3/build/qt6-Debug/CMakeFiles/install.dir
+/home/s1ash2k/oop_petrov_3/build/qt6-Debug/CMakeFiles/install/local.dir
+/home/s1ash2k/oop_petrov_3/build/qt6-Debug/CMakeFiles/install/strip.dir
+/home/s1ash2k/oop_petrov_3/build/qt6-Debug/CMakeFiles/oop_petrov_3_autogen_timestamp_deps.dir
+/home/s1ash2k/oop_petrov_3/build/qt6-Debug/CMakeFiles/oop_petrov_3_autogen.dir
