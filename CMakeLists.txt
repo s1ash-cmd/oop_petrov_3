@@ -25,7 +25,6 @@ set(PROJECT_SOURCES
     mainwindow.ui
 )
 
-# Дополнительные файлы для проекта
 set(ADDITIONAL_SOURCES
     petrov_header.h
     petrov_item.cpp
@@ -37,23 +36,22 @@ set(ADDITIONAL_SOURCES
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    # Для Qt6 используем qt_add_executable
     qt_add_executable(oop_petrov_3
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        ${ADDITIONAL_SOURCES}  # Подключаем дополнительные файлы
+        ${ADDITIONAL_SOURCES}
     )
 else()
-    # Для Qt5 используем стандартный add_executable
+
     if(ANDROID)
         add_library(oop_petrov_3 SHARED
             ${PROJECT_SOURCES}
-            ${ADDITIONAL_SOURCES}  # Подключаем дополнительные файлы
+            ${ADDITIONAL_SOURCES}
         )
     else()
         add_executable(oop_petrov_3
             ${PROJECT_SOURCES}
-            ${ADDITIONAL_SOURCES}  # Подключаем дополнительные файлы
+            ${ADDITIONAL_SOURCES}
         )
     endif()
 endif()
