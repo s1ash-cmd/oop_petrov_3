@@ -75,7 +75,7 @@ void petrov_widget::clearItems(){
 
 void petrov_widget::paintEvent(QPaintEvent *event) {
     if (items.empty()) {
-        return;  // Пропускаем отрисовку, если список пуст
+        return;
     }
 
     QPainter painter(this);
@@ -84,11 +84,9 @@ void petrov_widget::paintEvent(QPaintEvent *event) {
 
     painter.setFont(QFont("Arial", 10, QFont::Bold));
 
-    // Заголовки столбцов
     QStringList headers = {"Вес", "Ширина", "Высота", "Цена", "В наличии",
                            "Возраст", "Состояние", "Описание"};
 
-    // Подготовка данных
     QVector<QVector<QString>> rows;
     for (const auto& it : items) {
         ostringstream oss;
@@ -111,7 +109,6 @@ void petrov_widget::paintEvent(QPaintEvent *event) {
         rows.append({weight, width, height, price, availability, age, condition, description});
     }
 
-    // Вычисление ширины столбцов
     for (int col = 0; col < headers.size(); ++col) {
         int maxWidth = painter.fontMetrics().horizontalAdvance(headers[col]);
         for (const auto& row : rows) {
@@ -120,14 +117,12 @@ void petrov_widget::paintEvent(QPaintEvent *event) {
         columnWidths[col] = maxWidth + 20;
     }
 
-    // Отрисовка заголовков
     int x = 10;
     for (int col = 0; col < headers.size(); ++col) {
         painter.drawText(x, y, headers[col]);
         x += columnWidths[col];
     }
 
-    // Отрисовка данных
     painter.setFont(QFont("Arial", 10));
     for (const auto& row : rows) {
         y += 30;
