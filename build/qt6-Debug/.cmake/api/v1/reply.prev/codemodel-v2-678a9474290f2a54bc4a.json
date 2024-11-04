@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-5d24289be95581b19873.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "oop_petrov_3",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "oop_petrov_3::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-oop_petrov_3-Debug-203a5631714ddc969e71.json",
+					"name" : "oop_petrov_3",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "oop_petrov_3_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-oop_petrov_3_autogen-Debug-5ece194715c9735765ef.json",
+					"name" : "oop_petrov_3_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "oop_petrov_3_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-oop_petrov_3_autogen_timestamp_deps-Debug-85dbd361eb722a3f70b2.json",
+					"name" : "oop_petrov_3_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/s1ash2k/oop_petrov_3/build/qt6-Debug",
+		"source" : "/home/s1ash2k/oop_petrov_3"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

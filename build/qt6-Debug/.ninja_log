@@ -1,0 +1,18 @@
+# ninja log v6
+267	1509	1730739609668340612	CMakeFiles/oop_petrov_3.dir/petrov_item.cpp.o	3248436cd4d0d745
+1688	2023	1730749870648339823	oop_petrov_3	1c5d5f2516ef04f5
+3	1688	1730749868958339807	CMakeFiles/oop_petrov_3.dir/mainwindow.cpp.o	487ecb7aed634978
+267	1559	1730739609668340612	CMakeFiles/oop_petrov_3.dir/petrov_used_item.cpp.o	ac5e21874c9f570
+267	1927	1730749339358339268	CMakeFiles/oop_petrov_3.dir/oop_petrov_3_autogen/mocs_compilation.cpp.o	7acc9ebb02c95fec
+267	2575	1730749339358339268	CMakeFiles/oop_petrov_3.dir/petrov_widget.cpp.o	36887b7962892c81
+8	73	1730749942718339220	/home/s1ash2k/oop_petrov_3/build/qt6-Debug/oop_petrov_3_autogen/mocs_compilation.cpp	89a1162cba2881e7
+167	1580	1730748697728340425	CMakeFiles/oop_petrov_3.dir/main.cpp.o	86764e7f6eff3a36
+8	73	1730749942718339220	/home/s1ash2k/oop_petrov_3/build/qt6-Debug/oop_petrov_3_autogen/timestamp	89a1162cba2881e7
+8	73	1730749942718339220	oop_petrov_3_autogen/mocs_compilation.cpp	89a1162cba2881e7
+8	73	1730749942718339220	oop_petrov_3_autogen/timestamp	89a1162cba2881e7
+3	24	1730750012828339707	oop_petrov_3_autogen/timestamp	89a1162cba2881e7
+3	24	1730750012828339707	oop_petrov_3_autogen/mocs_compilation.cpp	89a1162cba2881e7
+3	24	1730750012828339707	/home/s1ash2k/oop_petrov_3/build/qt6-Debug/oop_petrov_3_autogen/timestamp	89a1162cba2881e7
+3	24	1730750012828339707	/home/s1ash2k/oop_petrov_3/build/qt6-Debug/oop_petrov_3_autogen/mocs_compilation.cpp	89a1162cba2881e7
+2	1669	1730750028028339851	CMakeFiles/oop_petrov_3.dir/mainwindow.cpp.o	487ecb7aed634978
+1669	1973	1730750029698339844	oop_petrov_3	1c5d5f2516ef04f5
