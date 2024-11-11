@@ -1183,5 +1183,5 @@
  mdp:/usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/stdarg.h
  mdp:/usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/stddef.h
 /home/s1ash2k/oop_petrov_3/main.cpp
-/home/s1ash2k/oop_petrov_3/petrov_widget.cpp
 /home/s1ash2k/oop_petrov_3/petrov_used_item.cpp
+/home/s1ash2k/oop_petrov_3/petrov_widget.cpp

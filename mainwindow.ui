@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
-    <height>700</height>
+    <width>1100</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -28,8 +28,8 @@
    </property>
    <property name="minimumSize">
     <size>
-     <width>1200</width>
-     <height>600</height>
+     <width>0</width>
+     <height>0</height>
     </size>
    </property>
    <layout class="QGridLayout" name="gridLayout">
@@ -37,6 +37,9 @@
      <widget class="QScrollArea" name="scrollArea">
       <property name="focusPolicy">
        <enum>Qt::FocusPolicy::StrongFocus</enum>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::SizeAdjustPolicy::AdjustToContents</enum>
       </property>
       <property name="widgetResizable">
        <bool>true</bool>
@@ -46,8 +49,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1600</width>
-         <height>700</height>
+         <width>1080</width>
+         <height>536</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -58,8 +61,8 @@
        </property>
        <property name="minimumSize">
         <size>
-         <width>1600</width>
-         <height>700</height>
+         <width>0</width>
+         <height>0</height>
         </size>
        </property>
       </widget>
@@ -72,13 +75,13 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1200</width>
-     <height>20</height>
+     <width>1100</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
     <property name="title">
-     <string>Файл</string>
+     <string>Меню</string>
     </property>
     <addaction name="load_from_file_qt"/>
     <addaction name="save_file_qt"/>
@@ -87,11 +90,6 @@
    <addaction name="menu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="clear_screen_qt">
-   <property name="text">
-    <string>Очистить экран</string>
-   </property>
-  </action>
   <action name="load_from_file_qt">
    <property name="text">
     <string>Загрузить из файла</string>

@@ -13,14 +13,9 @@ protected:
     double condition = 0.0;
     string description = "";
 
-public:
-    virtual void output(ostringstream &oss) const override {
-        item::output(oss);
-        oss << "Возраст: " << age << "\n"
-            << "Состояние: " << condition << "\n"
-            << "Описание: " << description << "\n";
-    }
+    friend class petrov_widget;
 
+public:
     template <class Archive>
     void serialize(Archive &ar, const unsigned int version) {
         ar & boost::serialization::base_object<item>(*this);

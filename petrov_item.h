@@ -16,16 +16,10 @@ protected:
     int price = 0;
     bool stock = 0;
 
+    friend class petrov_widget;
+
 public:
     virtual ~item() = default;
-
-    virtual void output(ostringstream &oss) const {
-        oss << "Вес: " << weight << "\n"
-            << "Ширина: " << width << "\n"
-            << "Высота: " << height << "\n"
-            << "Цена: " << price << "\n"
-            << "В наличии: " << (stock ? "Да" : "Нет") << "\n";
-    }
 
     template <class Archive>
     void serialize(Archive &ar, const unsigned int version) {

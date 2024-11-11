@@ -70,7 +70,9 @@ void petrov_widget::saveToFile() {
 
 void petrov_widget::clearItems(){
     items.clear();
+    setMinimumSize(0, 0);
     update();
+
 }
 
 void petrov_widget::paintEvent(QPaintEvent *event) {
@@ -82,54 +84,92 @@ void petrov_widget::paintEvent(QPaintEvent *event) {
     int y = 40;
     QVector<int> columnWidths(8, 0);
 
+    QFontMetrics metrics(painter.font());
+
+    QStringList headers = {"Вес", "Ширина", "Высота", "Цена", "В наличии", "Возраст", "Состояние", "Описание"};
+
+    // Установка ширины для заголовков
+    std::for_each(headers.begin(), headers.end(),
+                  [&metrics, &columnWidths, index = 0](const QString &header) mutable {
+                      columnWidths[index++] = metrics.horizontalAdvance(header);
+                  });
+
+    // Подсчёт ширины колонок для элементов
+    std::for_each(items.begin(), items.end(),
+                  std::bind([&metrics, &columnWidths](const std::shared_ptr<item>& itemPtr) {
+                      auto usedItemPtr = std::dynamic_pointer_cast<used_item>(itemPtr);
+                      if (!usedItemPtr) return;
+
+                      columnWidths[0] = std::max(columnWidths[0], metrics.horizontalAdvance(QString::number(usedItemPtr->weight)));
+                      columnWidths[1] = std::max(columnWidths[1], metrics.horizontalAdvance(QString::number(usedItemPtr->width)));
+                      columnWidths[2] = std::max(columnWidths[2], metrics.horizontalAdvance(QString::number(usedItemPtr->height)));
+                      columnWidths[3] = std::max(columnWidths[3], metrics.horizontalAdvance(QString::number(usedItemPtr->price)));
+                      columnWidths[4] = std::max(columnWidths[4], metrics.horizontalAdvance(usedItemPtr->stock ? "Да" : "Нет"));
+                      columnWidths[5] = std::max(columnWidths[5], metrics.horizontalAdvance(QString::number(usedItemPtr->age)));
+                      columnWidths[6] = std::max(columnWidths[6], metrics.horizontalAdvance(QString::number(usedItemPtr->condition)));
+                      columnWidths[7] = std::max(columnWidths[7], metrics.horizontalAdvance(QString::fromStdString(usedItemPtr->description)));
+                  }, std::placeholders::_1));
+
+    // Увеличиваем пространство для столбца "Описание"
+    columnWidths[7] += 100;  // Дополнительные отступы для "Описание", если оно слишком длинное
+
+    // Рисование заголовков
+    int x = 10;
     painter.setFont(QFont("Arial", 10, QFont::Bold));
 
-    QStringList headers = {"Вес", "Ширина", "Высота", "Цена", "В наличии",
-                           "Возраст", "Состояние", "Описание"};
+    std::for_each(headers.begin(), headers.end(), [&painter, &x, y, &columnWidths, index = 0](const QString &header) mutable {
+        painter.drawText(x, y, header);
+        x += columnWidths[index++] + 20;  // Отступы между колонками
+    });
 
-    QVector<QVector<QString>> rows;
-    for (const auto& it : items) {
-        ostringstream oss;
-        it->output(oss);
-        QString itemInfo = QString::fromStdString(oss.str());
-        QStringList lines = itemInfo.split("\n");
+    y += 30;
 
-        QString weight, width, height, price, availability, age, condition, description;
-        for (const QString& line : lines) {
-            if (line.contains("Вес:")) weight = line.split(":")[1].trimmed();
-            else if (line.contains("Ширина:")) width = line.split(":")[1].trimmed();
-            else if (line.contains("Высота:")) height = line.split(":")[1].trimmed();
-            else if (line.contains("Цена:")) price = line.split(":")[1].trimmed();
-            else if (line.contains("В наличии:")) availability = line.split(":")[1].trimmed();
-            else if (line.contains("Возраст:")) age = line.split(":")[1].trimmed();
-            else if (line.contains("Состояние:")) condition = line.split(":")[1].trimmed();
-            else if (line.contains("Описание:")) description = line.split(":")[1].trimmed();
-        }
+    // Рисование значений элементов
+    painter.setFont(QFont("Arial", 10, QFont::Normal));
 
-        rows.append({weight, width, height, price, availability, age, condition, description});
+    std::for_each(items.begin(), items.end(),
+                  std::bind([&painter, &y, &columnWidths](const std::shared_ptr<item>& itemPtr) {
+                      auto usedItemPtr = std::dynamic_pointer_cast<used_item>(itemPtr);
+                      if (!usedItemPtr) return;
+
+                      int x = 10;  // Сброс x для каждой новой строки
+                      painter.drawText(x, y, QString::number(usedItemPtr->weight));
+                      x += columnWidths[0] + 20;
+
+                      painter.drawText(x, y, QString::number(usedItemPtr->width));
+                      x += columnWidths[1] + 20;
+
+                      painter.drawText(x, y, QString::number(usedItemPtr->height));
+                      x += columnWidths[2] + 20;
+
+                      painter.drawText(x, y, QString::number(usedItemPtr->price));
+                      x += columnWidths[3] + 20;
+
+                      painter.drawText(x, y, usedItemPtr->stock ? "Да" : "Нет");
+                      x += columnWidths[4] + 20;
+
+                      painter.drawText(x, y, QString::number(usedItemPtr->age));
+                      x += columnWidths[5] + 20;
+
+                      painter.drawText(x, y, QString::number(usedItemPtr->condition));
+                      x += columnWidths[6] + 20;
+
+                      painter.drawText(x, y, QString::fromStdString(usedItemPtr->description));
+                      y += 30;
+                  }, std::placeholders::_1));
+
+    // Рассчитываем общую ширину с учетом отступов и ширины столбцов
+    int totalWidth = 0;
+    for (int width : columnWidths) {
+        totalWidth += width + 20;  // Отступы между колонками
     }
+    totalWidth += 30;  // Дополнительный отступ по бокам
 
-    for (int col = 0; col < headers.size(); ++col) {
-        int maxWidth = painter.fontMetrics().horizontalAdvance(headers[col]);
-        for (const auto& row : rows) {
-            maxWidth = max(maxWidth, painter.fontMetrics().horizontalAdvance(row[col]));
-        }
-        columnWidths[col] = maxWidth + 20;
-    }
+    int totalHeight = y + 30;
 
-    int x = 10;
-    for (int col = 0; col < headers.size(); ++col) {
-        painter.drawText(x, y, headers[col]);
-        x += columnWidths[col];
-    }
+    // Устанавливаем минимальный размер
+    setMinimumSize(totalWidth, totalHeight);
 
-    painter.setFont(QFont("Arial", 10));
-    for (const auto& row : rows) {
-        y += 30;
-        x = 10;
-        for (int col = 0; col < row.size(); ++col) {
-            painter.drawText(x, y, row[col]);
-            x += columnWidths[col];
-        }
-    }
+    // Устанавливаем геометрию виджета
+    setGeometry(geometry().x(), geometry().y(), totalWidth, totalHeight);
 }

@@ -37,13 +37,13 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 67,
+				"line" : 68,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 52,
+				"line" : 53,
 				"parent" : 0
 			},
 			{
@@ -163,15 +163,13 @@
 				1,
 				2,
 				7,
-				9
+				9,
+				10
 			]
 		}
 	],
 	"dependencies" : 
 	[
-		{
-			"id" : "oop_petrov_3_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
-		},
 		{
 			"backtrace" : 0,
 			"id" : "oop_petrov_3_autogen::@6890427a1f51a3e7e1df"
@@ -202,6 +200,10 @@
 			},
 			{
 				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "-Wl,--dependency-file,CMakeFiles/oop_petrov_3.dir/link.d",
 				"role" : "flags"
 			},
 			{
@@ -244,7 +246,8 @@
 				1,
 				2,
 				7,
-				9
+				9,
+				10
 			]
 		},
 		{
@@ -262,14 +265,14 @@
 			"name" : "",
 			"sourceIndexes" : 
 			[
-				10
+				11
 			]
 		},
 		{
 			"name" : "CMake Rules",
 			"sourceIndexes" : 
 			[
-				11
+				12
 			]
 		}
 	],
@@ -329,6 +332,12 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "petrov_item.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "petrov_used_item.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
