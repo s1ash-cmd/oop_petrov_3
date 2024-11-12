@@ -8,14 +8,11 @@
 using namespace std;
 
 class used_item : public item {
-protected:
+public:
     int age = 0;
     double condition = 0.0;
     string description = "";
 
-    friend class petrov_widget;
-
-public:
     template <class Archive>
     void serialize(Archive &ar, const unsigned int version) {
         ar & boost::serialization::base_object<item>(*this);

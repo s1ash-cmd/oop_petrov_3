@@ -17,16 +17,17 @@ using namespace std;
 
 class petrov_widget : public QWidget {
     Q_OBJECT
-    vector<shared_ptr<item>> items;
 
+    vector<shared_ptr<item>> items;
 public:
     explicit petrov_widget(QWidget *parent = nullptr);
+
     void loadFromFile();
     void saveToFile();
     void clearItems();
 
 protected:
     void paintEvent(QPaintEvent *event) override;
-
 };
+
 #endif // PETROV_WIDGET_H

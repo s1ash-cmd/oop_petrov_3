@@ -8,7 +8,7 @@
 using namespace std;
 
 class item {
-protected:
+public:
     string name = "";
     double weight = 0.0;
     double width = 0.0;
@@ -16,9 +16,6 @@ protected:
     int price = 0;
     bool stock = 0;
 
-    friend class petrov_widget;
-
-public:
     virtual ~item() = default;
 
     template <class Archive>
