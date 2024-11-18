@@ -37,13 +37,13 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 68,
+				"line" : 69,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 53,
+				"line" : 54,
 				"parent" : 0
 			},
 			{
@@ -171,9 +171,6 @@
 	"dependencies" : 
 	[
 		{
-			"id" : "oop_petrov_3_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
-		},
-		{
 			"backtrace" : 0,
 			"id" : "oop_petrov_3_autogen::@6890427a1f51a3e7e1df"
 		}
@@ -203,6 +200,10 @@
 			},
 			{
 				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "-Wl,--dependency-file,CMakeFiles/oop_petrov_3.dir/link.d",
 				"role" : "flags"
 			},
 			{
@@ -257,21 +258,23 @@
 				4,
 				5,
 				6,
-				8
+				8,
+				12
 			]
 		},
 		{
 			"name" : "",
 			"sourceIndexes" : 
 			[
-				11
+				11,
+				13
 			]
 		},
 		{
 			"name" : "CMake Rules",
 			"sourceIndexes" : 
 			[
-				12
+				14
 			]
 		}
 	],
@@ -338,6 +341,17 @@
 			"compileGroupIndex" : 0,
 			"path" : "petrov_used_item.cpp",
 			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "dialog.ui",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/qt6-Debug/oop_petrov_3_autogen/include/ui_dialog.h",
+			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 0,
