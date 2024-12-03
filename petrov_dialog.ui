@@ -43,7 +43,7 @@
    <property name="font">
     <font>
      <family>Monospace</family>
-     <pointsize>12</pointsize>
+     <pointsize>16</pointsize>
     </font>
    </property>
   </widget>
