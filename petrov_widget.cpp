@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <sstream>
 #include <QFontMetrics>
-#include <sstream>
 #include <functional>
 #include <vector>
 
@@ -72,54 +71,55 @@ void petrov_widget::clearItems(){
     items.clear();
     setMinimumSize(0, 0);
     update();
-
 }
 
 void updateColumnWidths(const shared_ptr<item>& itemPtr, QVector<int>& columnWidths, const QFontMetrics& metrics) {
     auto usedItemPtr = dynamic_pointer_cast<used_item>(itemPtr);
     if (usedItemPtr) {
-        columnWidths[0] = max(columnWidths[0], metrics.horizontalAdvance(QString::number(usedItemPtr->weight)) + 20);
-        columnWidths[1] = max(columnWidths[1], metrics.horizontalAdvance(QString::number(usedItemPtr->width)) + 20);
-        columnWidths[2] = max(columnWidths[2], metrics.horizontalAdvance(QString::number(usedItemPtr->height)) + 20);
-        columnWidths[3] = max(columnWidths[3], metrics.horizontalAdvance(QString::number(usedItemPtr->price)) + 20);
-        columnWidths[4] = max(columnWidths[4], metrics.horizontalAdvance(usedItemPtr->stock ? "Да" : "Нет") + 20);
-        columnWidths[5] = max(columnWidths[5], metrics.horizontalAdvance(QString::number(usedItemPtr->age)) + 20);
-        columnWidths[6] = max(columnWidths[6], metrics.horizontalAdvance(QString::number(usedItemPtr->condition)) + 20);
-        columnWidths[7] = max(columnWidths[7], metrics.horizontalAdvance(QString::fromStdString(usedItemPtr->description)) + 10);
+        columnWidths[0] = max(columnWidths[0], metrics.horizontalAdvance(QString::fromStdString(usedItemPtr->name)) + 20);
+        columnWidths[1] = max(columnWidths[1], metrics.horizontalAdvance(QString::number(usedItemPtr->weight)) + 20);
+        columnWidths[2] = max(columnWidths[2], metrics.horizontalAdvance(QString::number(usedItemPtr->width)) + 20);
+        columnWidths[3] = max(columnWidths[3], metrics.horizontalAdvance(QString::number(usedItemPtr->height)) + 20);
+        columnWidths[4] = max(columnWidths[4], metrics.horizontalAdvance(QString::number(usedItemPtr->price)) + 20);
+        columnWidths[5] = max(columnWidths[5], metrics.horizontalAdvance(usedItemPtr->stock ? "Да" : "Нет") + 20);
+        columnWidths[6] = max(columnWidths[6], metrics.horizontalAdvance(QString::number(usedItemPtr->age)) + 20);
+        columnWidths[7] = max(columnWidths[7], metrics.horizontalAdvance(QString::number(usedItemPtr->condition)) + 20);
+        columnWidths[8] = max(columnWidths[8], metrics.horizontalAdvance(QString::fromStdString(usedItemPtr->description)) + 10);
     }
 }
 
-void drawRow(const shared_ptr<item>& itemPtr, QPainter& painter, QVector<int>& columnWidths, int& row, int rowHeight, int startX, int startY) {
+void petrov_widget::drawRow(const shared_ptr<item>& itemPtr, QPainter& painter, QVector<int>& columnWidths, int row, int rowHeight, int startX, int startY) {
     auto usedItemPtr = dynamic_pointer_cast<used_item>(itemPtr);
     if (!usedItemPtr) return;
 
     int yPosition = startY + row * rowHeight + rowHeight / 2;
     int xPosition = startX;
 
-    painter.drawText(xPosition, yPosition, QString::number(usedItemPtr->weight));
+    painter.drawText(xPosition, yPosition, QString::fromStdString(usedItemPtr->name));
     xPosition += columnWidths[0];
 
-    painter.drawText(xPosition, yPosition, QString::number(usedItemPtr->width));
+    painter.drawText(xPosition, yPosition, QString::number(usedItemPtr->weight));
     xPosition += columnWidths[1];
 
-    painter.drawText(xPosition, yPosition, QString::number(usedItemPtr->height));
+    painter.drawText(xPosition, yPosition, QString::number(usedItemPtr->width));
     xPosition += columnWidths[2];
 
-    painter.drawText(xPosition, yPosition, QString::number(usedItemPtr->price));
+    painter.drawText(xPosition, yPosition, QString::number(usedItemPtr->height));
     xPosition += columnWidths[3];
 
-    painter.drawText(xPosition, yPosition, usedItemPtr->stock ? "Да" : "Нет");
+    painter.drawText(xPosition, yPosition, QString::number(usedItemPtr->price));
     xPosition += columnWidths[4];
 
-    painter.drawText(xPosition, yPosition, QString::number(usedItemPtr->age));
+    painter.drawText(xPosition, yPosition, usedItemPtr->stock ? "Да" : "Нет");
     xPosition += columnWidths[5];
 
-    painter.drawText(xPosition, yPosition, QString::number(usedItemPtr->condition));
+    painter.drawText(xPosition, yPosition, QString::number(usedItemPtr->age));
     xPosition += columnWidths[6];
 
-    painter.drawText(xPosition, yPosition, QString::fromStdString(usedItemPtr->description));
+    painter.drawText(xPosition, yPosition, QString::number(usedItemPtr->condition));
+    xPosition += columnWidths[7];
 
-    row++;
+    painter.drawText(xPosition, yPosition, QString::fromStdString(usedItemPtr->description));
 }
 
 void petrov_widget::paintEvent(QPaintEvent *event) {
@@ -138,7 +138,7 @@ void petrov_widget::paintEvent(QPaintEvent *event) {
     int startX = 10;
     int startY = 10;
 
-    QStringList headers = { "Вес", "Ширина", "Высота", "Цена", "В наличии", "Возраст", "Состояние", "Описание" };
+    QStringList headers = {"Название", "Вес", "Ширина", "Высота", "Цена", "В наличии", "Возраст", "Состояние", "Описание" };
     QVector<int> columnWidths(headers.size(), 0);
     QFontMetrics metrics(painter.font());
 
@@ -157,5 +157,5 @@ void petrov_widget::paintEvent(QPaintEvent *event) {
     }
 
     int row = 1;
-    for_each(items.begin(), items.end(), bind(drawRow, placeholders::_1, ref(painter), ref(columnWidths), ref(row), rowHeight, startX, startY));
+    for_each(items.begin(), items.end(), bind(drawRow, placeholders::_1, ref(painter), ref(columnWidths), row, rowHeight, startX, startY));
 }

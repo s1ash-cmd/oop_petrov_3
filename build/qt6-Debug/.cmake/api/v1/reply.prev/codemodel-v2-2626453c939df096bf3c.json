@@ -7,7 +7,7 @@
 				{
 					"build" : ".",
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-.-Debug-b74f72a40f0aeca8e8f9.json",
+					"jsonFile" : "directory-.-Debug-30e043a25cc6930ac750.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.16"
@@ -42,7 +42,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "oop_petrov_3::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-oop_petrov_3-Debug-d63c53b6e9bb3e43d14f.json",
+					"jsonFile" : "target-oop_petrov_3-Debug-6349ee7ffb5d7109216d.json",
 					"name" : "oop_petrov_3",
 					"projectIndex" : 0
 				},

@@ -8,10 +8,10 @@
 	[
 		"/home/s1ash2k/oop_petrov_3/CMakeLists.txt",
 		"/home/s1ash2k/oop_petrov_3/build/qt6-Debug/.qtc/package-manager/auto-setup.cmake",
-		"/home/s1ash2k/oop_petrov_3/build/qt6-Debug/CMakeFiles/3.31.0/CMakeSystem.cmake",
+		"/home/s1ash2k/oop_petrov_3/build/qt6-Debug/CMakeFiles/3.31.1/CMakeSystem.cmake",
 		"/usr/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake",
 		"/usr/share/cmake/Modules/Platform/Linux-Initialize.cmake",
-		"/home/s1ash2k/oop_petrov_3/build/qt6-Debug/CMakeFiles/3.31.0/CMakeCXXCompiler.cmake",
+		"/home/s1ash2k/oop_petrov_3/build/qt6-Debug/CMakeFiles/3.31.1/CMakeCXXCompiler.cmake",
 		"/usr/share/cmake/Modules/CMakeSystemSpecificInformation.cmake",
 		"/usr/share/cmake/Modules/CMakeGenericSystem.cmake",
 		"/usr/share/cmake/Modules/CMakeInitializeConfigs.cmake",
@@ -119,6 +119,12 @@
 			null
 		],
 		[
+			"/home/s1ash2k/oop_petrov_3/petrov_dialog.h",
+			"MU",
+			"EWIEGA46WW/moc_petrov_dialog.cpp",
+			null
+		],
+		[
 			"/home/s1ash2k/oop_petrov_3/petrov_header.h",
 			"MU",
 			"EWIEGA46WW/moc_petrov_header.cpp",
@@ -203,6 +209,7 @@
 	[
 		[ "/home/s1ash2k/oop_petrov_3/main.cpp", "MU", null ],
 		[ "/home/s1ash2k/oop_petrov_3/mainwindow.cpp", "MU", null ],
+		[ "/home/s1ash2k/oop_petrov_3/petrov_dialog.cpp", "MU", null ],
 		[ "/home/s1ash2k/oop_petrov_3/petrov_item.cpp", "MU", null ],
 		[ "/home/s1ash2k/oop_petrov_3/petrov_used_item.cpp", "MU", null ],
 		[ "/home/s1ash2k/oop_petrov_3/petrov_widget.cpp", "MU", null ]

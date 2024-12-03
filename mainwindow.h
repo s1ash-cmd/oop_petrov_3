@@ -5,6 +5,7 @@
 #include <QPainter>
 #include <QResizeEvent>
 #include <QPaintEvent>
+#include "petrov_dialog.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -19,8 +20,12 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void openEditDialog();
+
 private:
     Ui::MainWindow *ui;
+    petrov_dialog d;
 };
 
 #endif // MAINWINDOW_H

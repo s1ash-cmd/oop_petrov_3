@@ -1,6 +1,5 @@
-/home/s1ash2k/oop_petrov_3/build/qt6-Debug/oop_petrov_3_autogen/EWIEGA46WW/moc_mainwindow.cpp: /home/s1ash2k/oop_petrov_3/mainwindow.h \
+/home/s1ash2k/oop_petrov_3/build/qt6-Debug/oop_petrov_3_autogen/EWIEGA46WW/moc_petrov_dialog.cpp: /home/s1ash2k/oop_petrov_3/petrov_dialog.h \
   /home/s1ash2k/oop_petrov_3/build/qt6-Debug/oop_petrov_3_autogen/moc_predefs.h \
-  /home/s1ash2k/oop_petrov_3/petrov_dialog.h \
   /home/s1ash2k/oop_petrov_3/petrov_header.h \
   /home/s1ash2k/oop_petrov_3/petrov_item.h \
   /home/s1ash2k/oop_petrov_3/petrov_used_item.h \
@@ -690,7 +689,6 @@
   /usr/include/qt/QtCore/qconfig.h \
   /usr/include/qt/QtCore/qcontainerfwd.h \
   /usr/include/qt/QtCore/qcontainertools_impl.h \
-  /usr/include/qt/QtCore/qcoreevent.h \
   /usr/include/qt/QtCore/qdatastream.h \
   /usr/include/qt/QtCore/qdir.h \
   /usr/include/qt/QtCore/qfile.h \
@@ -746,13 +744,10 @@
   /usr/include/qt/QtCore/qvarlengtharray.h \
   /usr/include/qt/QtCore/qvector.h \
   /usr/include/qt/QtCore/qversiontagging.h \
-  /usr/include/qt/QtGui/QPaintEvent \
   /usr/include/qt/QtGui/QPainter \
-  /usr/include/qt/QtGui/QResizeEvent \
   /usr/include/qt/QtGui/qbrush.h \
   /usr/include/qt/QtGui/qcolor.h \
   /usr/include/qt/QtGui/qcursor.h \
-  /usr/include/qt/QtGui/qevent.h \
   /usr/include/qt/QtGui/qfont.h \
   /usr/include/qt/QtGui/qfontinfo.h \
   /usr/include/qt/QtGui/qfontmetrics.h \
@@ -773,15 +768,12 @@
   /usr/include/qt/QtGui/qtextoption.h \
   /usr/include/qt/QtGui/qtgui-config.h \
   /usr/include/qt/QtGui/qtguiglobal.h \
-  /usr/include/qt/QtGui/qtouchdevice.h \
   /usr/include/qt/QtGui/qtransform.h \
   /usr/include/qt/QtGui/qvalidator.h \
-  /usr/include/qt/QtGui/qvector2d.h \
   /usr/include/qt/QtGui/qwindowdefs.h \
   /usr/include/qt/QtWidgets/QDialog \
   /usr/include/qt/QtWidgets/QFileDialog \
   /usr/include/qt/QtWidgets/QListWidgetItem \
-  /usr/include/qt/QtWidgets/QMainWindow \
   /usr/include/qt/QtWidgets/QMessageBox \
   /usr/include/qt/QtWidgets/QScrollArea \
   /usr/include/qt/QtWidgets/QWidget \
@@ -795,7 +787,6 @@
   /usr/include/qt/QtWidgets/qframe.h \
   /usr/include/qt/QtWidgets/qlistview.h \
   /usr/include/qt/QtWidgets/qlistwidget.h \
-  /usr/include/qt/QtWidgets/qmainwindow.h \
   /usr/include/qt/QtWidgets/qmessagebox.h \
   /usr/include/qt/QtWidgets/qrubberband.h \
   /usr/include/qt/QtWidgets/qscrollarea.h \

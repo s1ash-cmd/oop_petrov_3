@@ -10,7 +10,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "build/qt6-Debug/CMakeFiles/3.31.0/CMakeSystem.cmake"
+			"path" : "build/qt6-Debug/CMakeFiles/3.31.1/CMakeSystem.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -24,7 +24,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "build/qt6-Debug/CMakeFiles/3.31.0/CMakeCXXCompiler.cmake"
+			"path" : "build/qt6-Debug/CMakeFiles/3.31.1/CMakeCXXCompiler.cmake"
 		},
 		{
 			"isCMake" : true,

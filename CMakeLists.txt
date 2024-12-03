@@ -47,7 +47,8 @@ else()
         ${ADDITIONAL_SOURCES}
         petrov_item.cpp
         petrov_used_item.cpp
-        dialog.ui
+
+        petrov_dialog.h petrov_dialog.cpp petrov_dialog.ui
     )
 endif()
 

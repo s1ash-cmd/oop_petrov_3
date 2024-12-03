@@ -1,12 +1,14 @@
 oop_petrov_3_autogen/timestamp: \
 	/home/s1ash2k/oop_petrov_3/CMakeLists.txt \
 	/home/s1ash2k/oop_petrov_3/build/qt6-Debug/.qtc/package-manager/auto-setup.cmake \
-	/home/s1ash2k/oop_petrov_3/build/qt6-Debug/CMakeFiles/3.31.0/CMakeCXXCompiler.cmake \
-	/home/s1ash2k/oop_petrov_3/build/qt6-Debug/CMakeFiles/3.31.0/CMakeSystem.cmake \
+	/home/s1ash2k/oop_petrov_3/build/qt6-Debug/CMakeFiles/3.31.1/CMakeCXXCompiler.cmake \
+	/home/s1ash2k/oop_petrov_3/build/qt6-Debug/CMakeFiles/3.31.1/CMakeSystem.cmake \
 	/home/s1ash2k/oop_petrov_3/build/qt6-Debug/oop_petrov_3_autogen/moc_predefs.h \
 	/home/s1ash2k/oop_petrov_3/main.cpp \
 	/home/s1ash2k/oop_petrov_3/mainwindow.cpp \
 	/home/s1ash2k/oop_petrov_3/mainwindow.h \
+	/home/s1ash2k/oop_petrov_3/petrov_dialog.cpp \
+	/home/s1ash2k/oop_petrov_3/petrov_dialog.h \
 	/home/s1ash2k/oop_petrov_3/petrov_header.h \
 	/home/s1ash2k/oop_petrov_3/petrov_item.cpp \
 	/home/s1ash2k/oop_petrov_3/petrov_item.h \
@@ -686,6 +688,7 @@ oop_petrov_3_autogen/timestamp: \
 	/usr/include/locale.h \
 	/usr/include/pthread.h \
 	/usr/include/qt/QtCore/QStringList \
+	/usr/include/qt/QtCore/qabstractitemmodel.h \
 	/usr/include/qt/QtCore/qalgorithms.h \
 	/usr/include/qt/QtCore/qarraydata.h \
 	/usr/include/qt/QtCore/qatomic.h \
@@ -711,9 +714,11 @@ oop_petrov_3_autogen/timestamp: \
 	/usr/include/qt/QtCore/qhash.h \
 	/usr/include/qt/QtCore/qhashfunctions.h \
 	/usr/include/qt/QtCore/qiodevice.h \
+	/usr/include/qt/QtCore/qitemselectionmodel.h \
 	/usr/include/qt/QtCore/qiterator.h \
 	/usr/include/qt/QtCore/qline.h \
 	/usr/include/qt/QtCore/qlist.h \
+	/usr/include/qt/QtCore/qlocale.h \
 	/usr/include/qt/QtCore/qlogging.h \
 	/usr/include/qt/QtCore/qmap.h \
 	/usr/include/qt/QtCore/qmargins.h \
@@ -730,6 +735,7 @@ oop_petrov_3_autogen/timestamp: \
 	/usr/include/qt/QtCore/qrect.h \
 	/usr/include/qt/QtCore/qrefcount.h \
 	/usr/include/qt/QtCore/qregexp.h \
+	/usr/include/qt/QtCore/qregularexpression.h \
 	/usr/include/qt/QtCore/qscopedpointer.h \
 	/usr/include/qt/QtCore/qset.h \
 	/usr/include/qt/QtCore/qshareddata.h \
@@ -780,21 +786,35 @@ oop_petrov_3_autogen/timestamp: \
 	/usr/include/qt/QtGui/qtguiglobal.h \
 	/usr/include/qt/QtGui/qtouchdevice.h \
 	/usr/include/qt/QtGui/qtransform.h \
+	/usr/include/qt/QtGui/qvalidator.h \
 	/usr/include/qt/QtGui/qvector2d.h \
 	/usr/include/qt/QtGui/qwindowdefs.h \
+	/usr/include/qt/QtWidgets/QDialog \
 	/usr/include/qt/QtWidgets/QFileDialog \
+	/usr/include/qt/QtWidgets/QListWidgetItem \
 	/usr/include/qt/QtWidgets/QMainWindow \
 	/usr/include/qt/QtWidgets/QMessageBox \
 	/usr/include/qt/QtWidgets/QScrollArea \
 	/usr/include/qt/QtWidgets/QWidget \
+	/usr/include/qt/QtWidgets/qabstractitemdelegate.h \
+	/usr/include/qt/QtWidgets/qabstractitemview.h \
 	/usr/include/qt/QtWidgets/qabstractscrollarea.h \
+	/usr/include/qt/QtWidgets/qabstractslider.h \
+	/usr/include/qt/QtWidgets/qabstractspinbox.h \
 	/usr/include/qt/QtWidgets/qdialog.h \
 	/usr/include/qt/QtWidgets/qfiledialog.h \
 	/usr/include/qt/QtWidgets/qframe.h \
+	/usr/include/qt/QtWidgets/qlistview.h \
+	/usr/include/qt/QtWidgets/qlistwidget.h \
 	/usr/include/qt/QtWidgets/qmainwindow.h \
 	/usr/include/qt/QtWidgets/qmessagebox.h \
+	/usr/include/qt/QtWidgets/qrubberband.h \
 	/usr/include/qt/QtWidgets/qscrollarea.h \
 	/usr/include/qt/QtWidgets/qsizepolicy.h \
+	/usr/include/qt/QtWidgets/qslider.h \
+	/usr/include/qt/QtWidgets/qstyle.h \
+	/usr/include/qt/QtWidgets/qstyleoption.h \
+	/usr/include/qt/QtWidgets/qtabbar.h \
 	/usr/include/qt/QtWidgets/qtabwidget.h \
 	/usr/include/qt/QtWidgets/qtwidgets-config.h \
 	/usr/include/qt/QtWidgets/qtwidgetsglobal.h \
@@ -908,4 +928,5 @@ oop_petrov_3_autogen/timestamp: \
 	/usr/share/cmake/Modules/Platform/Linux.cmake \
 	/usr/share/cmake/Modules/Platform/UnixPaths.cmake \
 	/home/s1ash2k/oop_petrov_3/mainwindow.ui \
+	/home/s1ash2k/oop_petrov_3/petrov_dialog.ui \
 	/usr/bin/cmake
