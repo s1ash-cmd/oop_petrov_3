@@ -25,7 +25,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    petrov_dialog d;
+
 };
 
 #endif // MAINWINDOW_H

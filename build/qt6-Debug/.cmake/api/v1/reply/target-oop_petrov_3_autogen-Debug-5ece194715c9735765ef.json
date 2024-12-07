@@ -14,6 +14,12 @@
 			}
 		]
 	},
+	"dependencies" : 
+	[
+		{
+			"id" : "oop_petrov_3_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
+		}
+	],
 	"id" : "oop_petrov_3_autogen::@6890427a1f51a3e7e1df",
 	"isGeneratorProvided" : true,
 	"name" : "oop_petrov_3_autogen",

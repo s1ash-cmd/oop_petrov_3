@@ -165,3 +165,9 @@ void petrov_widget::paintEvent(QPaintEvent *event) {
         row++;
     });
 }
+
+
+
+void petrov_widget::update() {
+    repaint();
+}

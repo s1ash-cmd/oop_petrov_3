@@ -20,26 +20,27 @@ using namespace std;
 class petrov_widget : public QWidget {
     Q_OBJECT
 
-    vector<shared_ptr<item>> items; // Вектор умных указателей на элементы
+    vector<shared_ptr<item>> items;
 
 public:
     explicit petrov_widget(QWidget *parent = nullptr);
 
-    void loadFromFile(); // Метод для загрузки данных из файла
-    void saveToFile(); // Метод для сохранения данных в файл
-    void clearItems(); // Метод для очистки списка элементов
+    void loadFromFile();
+    void saveToFile();
+    void clearItems();
+    void update();
 
-    const vector<shared_ptr<item>>& getItems() const {
+
+    vector<shared_ptr<item>>& getItems() {
         return items;
     }
 
 protected:
-    void paintEvent(QPaintEvent *event) override; // Переопределение метода для отрисовки
+    void paintEvent(QPaintEvent *event) override;
 
 private:
     static void drawRow(const shared_ptr<item>& itemPtr, QPainter& painter, QVector<int>& columnWidths, int row, int rowHeight, int startX, int startY);
 };
-
 
 
 

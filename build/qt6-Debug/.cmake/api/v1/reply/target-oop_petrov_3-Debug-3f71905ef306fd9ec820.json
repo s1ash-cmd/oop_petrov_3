@@ -172,6 +172,9 @@
 	"dependencies" : 
 	[
 		{
+			"id" : "oop_petrov_3_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
+		},
+		{
 			"backtrace" : 0,
 			"id" : "oop_petrov_3_autogen::@6890427a1f51a3e7e1df"
 		}
@@ -201,10 +204,6 @@
 			},
 			{
 				"fragment" : "",
-				"role" : "flags"
-			},
-			{
-				"fragment" : "-Wl,--dependency-file,CMakeFiles/oop_petrov_3.dir/link.d",
 				"role" : "flags"
 			},
 			{
