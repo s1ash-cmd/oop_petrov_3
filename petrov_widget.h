@@ -42,7 +42,4 @@ private:
     static void drawRow(const shared_ptr<item>& itemPtr, QPainter& painter, QVector<int>& columnWidths, int row, int rowHeight, int startX, int startY);
 };
 
-
-
-
 #endif // PETROV_WIDGET_H

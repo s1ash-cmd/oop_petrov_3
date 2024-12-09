@@ -166,8 +166,6 @@ void petrov_widget::paintEvent(QPaintEvent *event) {
     });
 }
 
-
-
 void petrov_widget::update() {
     repaint();
 }
