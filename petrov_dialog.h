@@ -44,6 +44,7 @@ private:
     void toAddMode();
     void toChangeMode();
     void clearFields();
+    bool validateItemInputs(shared_ptr<item> targetItem);
     void on_pushButton_delete_clicked();
     void on_pushButton_change_clicked();
     void on_pushButton_add_clicked();

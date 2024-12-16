@@ -9,10 +9,6 @@ petrov_dialog::petrov_dialog(vector<shared_ptr<item>>& itemsRef, QWidget *parent
     : QDialog(parent), ui(new Ui::petrov_dialog), items(itemsRef), changeditems(itemsRef) {
     ui->setupUi(this);
 
-    if (changeditems.empty()) {
-        changeditems.push_back(make_shared<item>());
-    }
-
     ui->checkBox_stock->setGeometry(590, 211, 30, 30);
     ui->checkBox_stock->setStyleSheet("QCheckBox::indicator { width: 30px; height: 30px; }");
 
@@ -45,18 +41,23 @@ void petrov_dialog::updateListWidget() {
         QString itemText = QString::fromStdString(item->name);
         ui->listWidget->addItem(new QListWidgetItem(itemText));
     }
+
+    if (!changeditems.empty()) {
+        int selectedRow = changeditems.size() - 1;
+        ui->listWidget->setCurrentRow(selectedRow);
+        emit ui->listWidget->itemClicked(ui->listWidget->item(selectedRow));
+    }
+
     toViewMode();
 }
 
 void petrov_dialog::onItemClicked(QListWidgetItem *selectedItem) {
     if (!selectedItem) return;
 
-    QString selectedName = selectedItem->text();
-    auto it = find_if(items.begin(), items.end(), [&](const shared_ptr<item> &itm) {
-        return QString::fromStdString(itm->name) == selectedName;
-    });
+    int selectedRow = ui->listWidget->row(selectedItem);
+    if (selectedRow < 0 || selectedRow >= changeditems.size()) return;
 
-    shared_ptr<item> selectedObject = *it;
+    auto selectedObject = changeditems[selectedRow];
 
     ui->textEdit_name->setText(QString::fromStdString(selectedObject->name));
     ui->textEdit_weight->setText(QString::number(selectedObject->weight));
@@ -87,6 +88,7 @@ void petrov_dialog::onItemClicked(QListWidgetItem *selectedItem) {
     }
     setFieldsDisabled(true);
 }
+
 
 void petrov_dialog::setFieldsDisabled(bool disabledState) {
     ui->textEdit_name->setReadOnly(disabledState);
@@ -125,7 +127,7 @@ void petrov_dialog::toAddMode() {
 
 void petrov_dialog::toChangeMode() {
     setFieldsDisabled(false);
-    ui->listWidget->setDisabled(false);
+    ui->listWidget->setDisabled(true);
     ui->pushButton_save->setVisible(true);
     ui->pushButton_cancel->setVisible(true);
 
@@ -137,11 +139,71 @@ void petrov_dialog::toChangeMode() {
 void petrov_dialog::clearFields() {
     ui->textEdit_name->clear();
     ui->textEdit_weight->clear();
+    ui->textEdit_height->clear();
     ui->textEdit_width->clear();
     ui->textEdit_price->clear();
+    ui->textEdit_age->clear();
     ui->textEdit_description->clear();
     ui->doubleSpinBox_condition->setValue(0.0);
     ui->checkBox_stock->setCheckState(Qt::CheckState(false));
+}
+
+bool petrov_dialog::validateItemInputs(shared_ptr<item> selectedItem) {
+    bool isValid = true;
+
+    if (ui->textEdit_name->toPlainText().isEmpty()) {
+        QMessageBox::warning(nullptr, "Ошибка", "Имя товара не может быть пустым.");
+        isValid = false;
+    }
+
+    bool weightOk;
+    double weight = ui->textEdit_weight->toPlainText().toDouble(&weightOk);
+    if (!weightOk || weight <= 0) {
+        QMessageBox::warning(nullptr, "Ошибка", "Вес должен быть числом больше нуля.");
+        isValid = false;
+    }
+
+    bool heightOk;
+    double height = ui->textEdit_height->toPlainText().toDouble(&heightOk);
+    if (!heightOk || height <= 0) {
+        QMessageBox::warning(nullptr, "Ошибка", "Высота должна быть числом больше нуля.");
+        isValid = false;
+    }
+
+    bool widthOk;
+    double width = ui->textEdit_width->toPlainText().toDouble(&widthOk);
+    if (!widthOk || width <= 0) {
+        QMessageBox::warning(nullptr, "Ошибка", "Ширина должна быть числом больше нуля.");
+        isValid = false;
+    }
+
+    bool priceOk;
+    double price = ui->textEdit_price->toPlainText().toDouble(&priceOk);
+    if (!priceOk || price <= 0) {
+        QMessageBox::warning(nullptr, "Ошибка", "Цена должна быть числом больше нуля.");
+        isValid = false;
+    }
+
+    if (auto usedItem = dynamic_pointer_cast<used_item>(selectedItem)) {
+        bool ageOk;
+        int age = ui->textEdit_age->toPlainText().toInt(&ageOk);
+        if (!ageOk || age < 0) {
+            QMessageBox::warning(nullptr, "Ошибка", "Возраст должен быть числом больше или равным нулю.");
+            isValid = false;
+        }
+
+        if (ui->doubleSpinBox_condition->value() < 0 || ui->doubleSpinBox_condition->value() > 10) {
+            QMessageBox::warning(nullptr, "Ошибка", "Состояние должно быть в диапазоне от 0 до 10.");
+            isValid = false;
+        }
+
+        if (ui->textEdit_description->toPlainText().isEmpty()) {
+            QMessageBox::warning(nullptr, "Ошибка", "Описание не может быть пустым.");
+            isValid = false;
+        }
+    }
+
+    return isValid;
 }
 
 void petrov_dialog::on_pushButton_delete_clicked() {
@@ -169,95 +231,64 @@ void petrov_dialog::on_pushButton_delete_clicked() {
         if (changeditems.empty()) {
             toViewMode();
         }
+        else{
+            int newRow = (currentRow == changeditems.size()) ? currentRow - 1 : currentRow;
+            ui->listWidget->setCurrentRow(newRow);
+            emit ui->listWidget->itemClicked(ui->listWidget->item(newRow));
+        }
     }
 }
 
-void petrov_dialog::on_pushButton_change_clicked() {
-    int currentRow = ui->listWidget->currentRow();
+void petrov_dialog::on_pushButton_add_clicked() {
+    QMessageBox msgBox;
+    msgBox.setText("Какой товар добавить?");
+    QPushButton* usedButton = msgBox.addButton("Б/У", QMessageBox::NoRole);
+    QPushButton* newButton = msgBox.addButton("Новый", QMessageBox::YesRole);
+    msgBox.exec();
 
-    if (currentRow < 0) {
-        QMessageBox::information(this, "Нет товаров", "У вас нет товаров для редактирования");
+    shared_ptr<item> newItem;
+
+    clearFields();
+    ui->doubleSpinBox_condition->hide();
+    ui->textEdit_age->hide();
+    ui->textEdit_description->hide();
+    ui->label_7->hide();
+    ui->label_8->hide();
+    ui->label_9->hide();
+
+    if (msgBox.clickedButton() == newButton) {
+        newItem = make_shared<item>();
+    } else if (msgBox.clickedButton() == usedButton) {
+        ui->doubleSpinBox_condition->show();
+        ui->textEdit_age->show();
+        ui->textEdit_description->show();
+        ui->label_7->show();
+        ui->label_8->show();
+        ui->label_9->show();
+
+        newItem = make_shared<used_item>();
+    } else {
         return;
     }
 
-    auto& selectedObject = changeditems[currentRow];
-    auto originalObject = make_shared<item>(*selectedObject);
-    auto originalUsedObject = dynamic_pointer_cast<used_item>(selectedObject) ? make_shared<used_item>(*dynamic_pointer_cast<used_item>(selectedObject)) : nullptr;
+    toAddMode();
 
-    toChangeMode();
+    disconnect(ui->pushButton_save, &QPushButton::clicked, this, nullptr);
+    disconnect(ui->pushButton_cancel, &QPushButton::clicked, this, nullptr);
 
-    auto validateInputs = [this, &selectedObject]() -> bool {
-        bool isValid = true;
-
-        if (ui->textEdit_name->toPlainText().isEmpty()) {
-            QMessageBox::warning(nullptr, "Ошибка", "Имя товара не может быть пустым.");
-            isValid = false;
-        }
-
-        bool weightOk;
-        double weight = ui->textEdit_weight->toPlainText().toDouble(&weightOk);
-        if (!weightOk || weight <= 0) {
-            QMessageBox::warning(nullptr, "Ошибка", "Вес должен быть числом больше нуля.");
-            isValid = false;
-        }
-
-        bool heightOk;
-        double height = ui->textEdit_height->toPlainText().toDouble(&heightOk);
-        if (!heightOk || height <= 0) {
-            QMessageBox::warning(nullptr, "Ошибка", "Высота должна быть числом больше нуля.");
-            isValid = false;
-        }
-
-        bool widthOk;
-        double width = ui->textEdit_width->toPlainText().toDouble(&widthOk);
-        if (!widthOk || width <= 0) {
-            QMessageBox::warning(nullptr, "Ошибка", "Ширина должна быть числом больше нуля.");
-            isValid = false;
-        }
-
-        bool priceOk;
-        double price = ui->textEdit_price->toPlainText().toDouble(&priceOk);
-        if (!priceOk || price <= 0) {
-            QMessageBox::warning(nullptr, "Ошибка", "Цена должна быть числом больше нуля.");
-            isValid = false;
-        }
-
-        if (auto usedItem = dynamic_pointer_cast<used_item>(selectedObject)) {
-            bool ageOk;
-            int age = ui->textEdit_age->toPlainText().toInt(&ageOk);
-            if (!ageOk || age < 0) {
-                QMessageBox::warning(nullptr, "Ошибка", "Возраст должен быть числом больше или равным нулю.");
-                isValid = false;
-            }
-
-            if (ui->doubleSpinBox_condition->value() < 0 || ui->doubleSpinBox_condition->value() > 10) {
-                QMessageBox::warning(nullptr, "Ошибка", "Состояние должно быть в диапазоне от 0 до 100.");
-                isValid = false;
-            }
-
-            if (ui->textEdit_description->toPlainText().isEmpty()) {
-                QMessageBox::warning(nullptr, "Ошибка", "Описание не может быть пустым.");
-                isValid = false;
-            }
-        }
-
-        return isValid;
-    };
-
-    auto saveChanges = [this, currentRow, validateInputs]() {
-        if (!validateInputs()) {
+    auto saveNewItem = [this, newItem]() {
+        if (!validateItemInputs(newItem)) {
             return;
         }
 
-        auto& selectedObject = changeditems[currentRow];
-        selectedObject->name = ui->textEdit_name->toPlainText().toStdString();
-        selectedObject->weight = ui->textEdit_weight->toPlainText().toDouble();
-        selectedObject->height = ui->textEdit_height->toPlainText().toDouble();
-        selectedObject->width = ui->textEdit_width->toPlainText().toDouble();
-        selectedObject->price = ui->textEdit_price->toPlainText().toDouble();
-        selectedObject->stock = ui->checkBox_stock->isChecked();
+        newItem->name = ui->textEdit_name->toPlainText().toStdString();
+        newItem->weight = ui->textEdit_weight->toPlainText().toDouble();
+        newItem->height = ui->textEdit_height->toPlainText().toDouble();
+        newItem->width = ui->textEdit_width->toPlainText().toDouble();
+        newItem->price = ui->textEdit_price->toPlainText().toDouble();
+        newItem->stock = ui->checkBox_stock->isChecked();
 
-        if (auto usedItem = dynamic_pointer_cast<used_item>(selectedObject)) {
+        if (auto usedItem = dynamic_pointer_cast<used_item>(newItem)) {
             usedItem->age = ui->textEdit_age->toPlainText().toInt();
             usedItem->condition = ui->doubleSpinBox_condition->value();
             usedItem->description = ui->textEdit_description->toPlainText().toStdString();
@@ -267,65 +298,41 @@ void petrov_dialog::on_pushButton_change_clicked() {
         toViewMode();
     };
 
-    auto cancelChanges = [this, currentRow, originalObject, originalUsedObject]() {
-        if (originalUsedObject) {
-            *dynamic_pointer_cast<used_item>(changeditems[currentRow]) = *originalUsedObject;
-        } else {
-            *changeditems[currentRow] = *originalObject;
-        }
+    changeditems.push_back(newItem);
 
+    auto cancelNewItem = [this]() {
+        clearFields();
         updateListWidget();
         toViewMode();
     };
 
-    connect(ui->pushButton_save, &QPushButton::clicked, this, saveChanges);
-    connect(ui->pushButton_cancel, &QPushButton::clicked, this, cancelChanges);
+    int lastRow = changeditems.size() - 1;
+    ui->listWidget->setCurrentRow(lastRow);
+    emit ui->listWidget->itemClicked(ui->listWidget->item(lastRow));
+
+    connect(ui->pushButton_save, &QPushButton::clicked, this, saveNewItem);
+    connect(ui->pushButton_cancel, &QPushButton::clicked, this, cancelNewItem);
 }
 
 
-void petrov_dialog::on_pushButton_add_clicked() {
-    QMessageBox msgBox;
-    msgBox.setText("Какой товар добавить?");
-    QPushButton* usedButton = msgBox.addButton("Б/У", QMessageBox::NoRole);
-    QPushButton* newButton = msgBox.addButton("Новый", QMessageBox::YesRole);
-    msgBox.exec();
+void petrov_dialog::on_pushButton_change_clicked() {
+    int currentRow = ui->listWidget->currentRow();
 
-    bool isUsedItem = msgBox.clickedButton() == usedButton;
-
-    shared_ptr<item> newItem;
-
-    if (isUsedItem) {
-        auto usedItem = make_shared<used_item>();
-        usedItem->age = 0;
-        usedItem->condition = 10.0;
-        usedItem->description = "Описание отсутствует";
-        newItem = usedItem;
-    } else {
-        newItem = make_shared<item>();
+    if (currentRow < 0 || currentRow >= changeditems.size()) {
+        QMessageBox::information(this, "Ошибка", "У вас нет товаров для редактирования.");
+        return;
     }
 
-    newItem->name = "Новый товар";
-    newItem->weight = 0.0;
-    newItem->height = 0.0;
-    newItem->width = 0.0;
-    newItem->price = 0.0;
-    newItem->stock = false;
+    auto selectedItem = changeditems[currentRow];
 
-    changeditems.push_back(newItem);
+    ui->textEdit_name->setText(QString::fromStdString(selectedItem->name));
+    ui->textEdit_weight->setText(QString::number(selectedItem->weight));
+    ui->textEdit_height->setText(QString::number(selectedItem->height));
+    ui->textEdit_width->setText(QString::number(selectedItem->width));
+    ui->textEdit_price->setText(QString::number(selectedItem->price));
+    ui->checkBox_stock->setChecked(selectedItem->stock);
 
-    updateListWidget();
-    toAddMode();
-
-
-    ui->textEdit_name->setText(QString::fromStdString(newItem->name));
-    ui->textEdit_weight->setText(QString::number(newItem->weight));
-    ui->textEdit_height->setText(QString::number(newItem->height));
-    ui->textEdit_width->setText(QString::number(newItem->width));
-    ui->textEdit_price->setText(QString::number(newItem->price));
-    ui->checkBox_stock->setChecked(newItem->stock);
-
-    if (isUsedItem) {
-        auto usedItem = dynamic_pointer_cast<used_item>(newItem);
+    if (auto usedItem = dynamic_pointer_cast<used_item>(selectedItem)) {
         ui->textEdit_age->setText(QString::number(usedItem->age));
         ui->doubleSpinBox_condition->setValue(usedItem->condition);
         ui->textEdit_description->setText(QString::fromStdString(usedItem->description));
@@ -345,30 +352,40 @@ void petrov_dialog::on_pushButton_add_clicked() {
         ui->label_9->hide();
     }
 
+    toChangeMode();
 
-    connect(ui->pushButton_save, &QPushButton::clicked, this, [this, newItem]() {
-        newItem->name = ui->textEdit_name->toPlainText().toStdString();
-        newItem->weight = ui->textEdit_weight->toPlainText().toDouble();
-        newItem->height = ui->textEdit_height->toPlainText().toDouble();
-        newItem->width = ui->textEdit_width->toPlainText().toDouble();
-        newItem->price = ui->textEdit_price->toPlainText().toDouble();
-        newItem->stock = ui->checkBox_stock->isChecked();
+    disconnect(ui->pushButton_save, &QPushButton::clicked, this, nullptr);
+    disconnect(ui->pushButton_cancel, &QPushButton::clicked, this, nullptr);
 
-        if (auto usedItem = dynamic_pointer_cast<used_item>(newItem)) {
+    auto saveChanges = [this, selectedItem, currentRow]() {
+        if (!validateItemInputs(selectedItem)) {
+            return;
+        }
+
+        selectedItem->name = ui->textEdit_name->toPlainText().toStdString();
+        selectedItem->weight = ui->textEdit_weight->toPlainText().toDouble();
+        selectedItem->height = ui->textEdit_height->toPlainText().toDouble();
+        selectedItem->width = ui->textEdit_width->toPlainText().toDouble();
+        selectedItem->price = ui->textEdit_price->toPlainText().toDouble();
+        selectedItem->stock = ui->checkBox_stock->isChecked();
+
+        if (auto usedItem = dynamic_pointer_cast<used_item>(selectedItem)) {
             usedItem->age = ui->textEdit_age->toPlainText().toInt();
             usedItem->condition = ui->doubleSpinBox_condition->value();
             usedItem->description = ui->textEdit_description->toPlainText().toStdString();
         }
 
         updateListWidget();
+        ui->listWidget->setCurrentRow(currentRow);
         toViewMode();
-    });
+    };
 
-
-    connect(ui->pushButton_cancel, &QPushButton::clicked, this, [this, newItem]() {
-        changeditems.pop_back();
+    auto cancelChanges = [this]() {
+        clearFields();
         updateListWidget();
         toViewMode();
-    });
-}
+    };
 
+    connect(ui->pushButton_save, &QPushButton::clicked, this, saveChanges);
+    connect(ui->pushButton_cancel, &QPushButton::clicked, this, cancelChanges);
+}
